@@ -183,4 +183,9 @@
 @theme {
 	--font-display: Metropolis, "sans-serif";
     --color-mint-500: oklch(0.72 0.11 178);
+    --color-night-950: #141414;
+    --color-night-900: #212121;
+    --color-platinum: #d9d9d9;
+    --color-raspberry: #E0055D;
+    --color-gray: #787878;
 }
