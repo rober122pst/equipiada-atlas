@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
 
 const gameSchema = new mongoose.Schema({
+  title: { type: String, required: true },   
 
-    title: { type: String, required: true },  //Game name
-    genre: { type: String, required: true },  //Game genre
-    releaseDate: { type: Date },  //Release date
-    platform: { type: String },  //Platform
-    gameCover: { type: String }, //Game cover image URL
-});
+  // Agora aceita múltiplos gêneros
+  genres: [{ type: String }],                 
+
+  // Agora aceita múltiplas plataformas
+  platforms: [{ type: String }],              
+
+  releaseDate: { type: Date },                
+}, { timestamps: true });
 
 export default mongoose.model("Game", gameSchema);
