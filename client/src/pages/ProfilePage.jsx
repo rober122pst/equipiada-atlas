@@ -9,7 +9,7 @@ import ProfileFriends from '../components/ProfileFriends.jsx';
 
 function ProfilePage() {
     return (
-        <div className='min-h-screen bg-night-950 text-platinum font-display'>
+        <div className='min-h-screen bg-rich-950 text-platinum font-display'>
             <header className='sticky top-0 z-50'>
                 <Navbar />
             </header>

@@ -9,7 +9,7 @@ function Navbar() {
     }
 
     return (
-        <nav className="px-8 h-[90px] flex items-center justify-between bg-night-950">
+        <nav className="px-8 h-[90px] flex items-center justify-between bg-rich-950">
             <div>
                 <h1 className="text-[40px] font-black italic text-raspberry">LOGO</h1>
             </div>

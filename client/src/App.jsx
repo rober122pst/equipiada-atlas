@@ -1,15 +1,15 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Router, Routes, Route, Link } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import ProfilePageRober from "./pages/ProfilePageRober.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<ProfilePage />} />
-                <Route path="/rober122" element={<ProfilePageRober />} />
-            </Routes>
-        </Router>
+        <Routes>
+            <Route path="/" element={<ProfilePage />} />
+            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/register" element={<RegisterPage />} />
+        </Routes>
     )
 }
 

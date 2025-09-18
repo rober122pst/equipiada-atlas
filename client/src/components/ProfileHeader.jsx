@@ -12,9 +12,9 @@ function Profile() {
                 after:absolute
                 after:inset-0
                 after:bg-gradient-to-t
-                after:from-night-950/90
-                after:via-night-950/70
-                after:to-night-950/50
+                after:from-rich-950/90
+                after:via-rich-950/70
+                after:to-rich-950/50
             ">
                 <img className="object-cover w-full h-full" src="/banner.jpg" alt="banner" />
             </div>
@@ -39,7 +39,7 @@ function Profile() {
                 </div>
                 <div className="flex items-center gap-4">
                     <button className="px-6 py-2 rounded-lg bg-raspberry text-[20px] hover:bg-raspberry/80 transition">Seguir</button>
-                    <button className="px-6 py-2 rounded-lg bg-night-900 text-[20px] whitespace-nowrap hover:bg-night-900/70 transition">Adicionar amigo</button>
+                    <button className="px-6 py-2 rounded-lg bg-rich-900 text-[20px] whitespace-nowrap hover:bg-rich-900/70 transition">Adicionar amigo</button>
                 </div>
             </div>
         </div>

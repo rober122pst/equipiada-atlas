@@ -2,7 +2,7 @@ import { LuClock, LuGamepad, LuFlag, LuMedal, LuTrophy } from "react-icons/lu";
 
 function ProfileStatsBar() {
     return (
-        <div className="flex justify-around items-center bg-night-900 p-4 rounded-3xl w-full h-[116px]">
+        <div className="flex justify-around items-center p-4 border-2 rounded-2xl border-rich-900 w-full h-[116px]">
             <a href="" className="flex gap-3 items-center">
                 <LuClock className="text-raspberry text-5xl" />
                 <div>
