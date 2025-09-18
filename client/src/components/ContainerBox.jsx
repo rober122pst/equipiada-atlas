@@ -1,6 +1,6 @@
 function ContainerBox(props) {
     return (
-        <div className="flex bg-night-900 p-4 rounded-3xl w-full min-h-[100px] flex-col">
+        <div className="flex border-2 border-night-900 p-4 rounded-3xl w-full min-h-[100px] flex-col">
             <h6 className="font-semibold text-2xl text-gray">{props.title}</h6>
             {props.children}
         </div>
