@@ -2,6 +2,7 @@ import ProfileHeader from '../components/ProfileHeader.jsx'
 import ProfileStatsBar from '../components/ProfileStatsBar.jsx';
 import GameCard from '../components/GameCard.jsx';
 import RecentGameCard from '../components/RecentGameCard.jsx';
+import PlatinumGameCard from '../components/PlatinumGameCard.jsx';
 import ProfileLinks from '../components/ProfileLinks.jsx';
 import Navbar from "../components/Navbar.jsx";
 import ContainerBox from '../components/ContainerBox.jsx';
@@ -18,12 +19,12 @@ function ProfilePage() {
                 <div className='flex flex-col lg:flex-row mt-6 gap-6'>
                     <div className='flex flex-col gap-6 w-full'>
                         <ProfileStatsBar />
-                        <ContainerBox title="Platinas">
-                            <div className='grid grid-cols-2 gap-4'>
-                                <GameCard title="The Witcher 3: Wild Hunt" time="127" rating="11" />
-                                <GameCard title="Cyberpunk 2077" time="150" rating="10" />
-                                <GameCard title="Resident Evil 2" time="89" rating="09" />
-                                <GameCard />
+                        <ContainerBox title="Platinas recentes">
+                            <div className='grid grid-cols-2 gap-6 mt-2'>
+                                <PlatinumGameCard title="The Witcher 3: Wild Hunt" time="127" rating="11" />
+                                <PlatinumGameCard title="Cyberpunk 2077" time="150" rating="10" />
+                                <PlatinumGameCard title="Resident Evil 2" time="89" rating="09" />
+                                <PlatinumGameCard />
                             </div>
                             <h3 className='font-semibold text-3xl mt-2 ml-4'>Mais <a href='' className='text-raspberry italic font-extrabold hover:underline'>49</a> jogos</h3>
                         </ContainerBox>

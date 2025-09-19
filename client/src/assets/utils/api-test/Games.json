@@ -1,0 +1,91 @@
+[
+    {
+        "slug": "the-witcher-3",
+        "title": "The Witcher 3: Wild Hunt",
+        "genres": ["RPG", "Aventura"],
+        "platforms": ["PC", "PS4", "Xbox One", "Nintendo Switch"],
+        "releaseDate": "2015-05-19T00:00:00.000Z",
+        "coverURL": "https://example.com/witcher3.jpg",
+        "bannerURL": "https://media.rawg.io/media/crop/600/400/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg",
+        "screenshots": [
+            "https://example.com/witcher3-1.jpg",
+            "https://example.com/witcher3-2.jpg"
+        ],
+        "description": "Um RPG de mundo aberto onde Geralt de Rívia busca sua filha adotiva.",
+        "externalIds": {
+            "steam": "292030",
+            "igdb": "1942",
+            "rawg": "the-witcher-3-wild-hunt"
+        },
+        "preferedSource": "rawg",
+        "ratings": {
+            "metacritic": 93
+        }
+    },
+    {
+        "slug": "cyberpunk-2077",
+        "title": "Cyberpunk 2077",
+        "genres": ["RPG", "Ação"],
+        "platforms": ["PC", "PS4", "PS5", "Xbox One", "Xbox Series X/S"],
+        "releaseDate": "2020-12-10T00:00:00.000Z",
+        "coverURL": "https://example.com/cyberpunk2077.jpg",
+        "screenshots": [
+            "https://example.com/cyberpunk2077-1.jpg",
+            "https://example.com/cyberpunk2077-2.jpg"
+        ],
+        "description": "Um RPG futurista em Night City, onde você joga como V.",
+        "externalIds": {
+            "steam": "1091500",
+            "igdb": "1877",
+            "rawg": "cyberpunk-2077"
+        },
+        "preferedSource": "rawg",
+        "ratings": {
+            "metacritic": 86
+        }
+    },
+    {
+        "slug": "resident-evil-2-remake",
+        "title": "Resident Evil 2 (Remake)",
+        "genres": ["Terror", "Ação"],
+        "platforms": ["PC", "PS4", "Xbox One"],
+        "releaseDate": "2019-01-25T00:00:00.000Z",
+        "coverURL": "https://example.com/re2remake.jpg",
+        "screenshots": [
+            "https://example.com/re2remake-1.jpg",
+            "https://example.com/re2remake-2.jpg"
+        ],
+        "description": "Remake do clássico de terror, acompanhando Leon e Claire em Raccoon City.",
+        "externalIds": {
+            "steam": "883710",
+            "igdb": "25076",
+            "rawg": "resident-evil-2"
+        },
+        "preferedSource": "rawg",
+        "ratings": {
+            "metacritic": 91
+        }
+    },
+    {
+        "slug": "hogwarts-legacy",
+        "title": "Hogwarts Legacy",
+        "genres": ["RPG", "Aventura"],
+        "platforms": ["PC", "PS4", "PS5", "Xbox One", "Xbox Series X/S"],
+        "releaseDate": "2023-02-10T00:00:00.000Z",
+        "coverURL": "https://example.com/hogwartslegacy.jpg",
+        "screenshots": [
+            "https://example.com/hogwartslegacy-1.jpg",
+            "https://example.com/hogwartslegacy-2.jpg"
+        ],
+        "description": "Explore Hogwarts em um RPG de mundo aberto ambientado no universo de Harry Potter.",
+        "externalIds": {
+            "steam": "990080",
+            "igdb": "133687",
+            "rawg": "hogwarts-legacy"
+        },
+        "preferedSource": "rawg",
+        "ratings": {
+            "metacritic": 84
+        }
+    }
+]
