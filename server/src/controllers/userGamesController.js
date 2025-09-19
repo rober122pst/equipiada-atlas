@@ -1,3 +1,4 @@
+import { response } from "express";
 import userGames from '../models/userGames';
 export const createUserGame = async (req, res) => {
     try {
