@@ -8,7 +8,10 @@ import Navbar from "../components/Navbar.jsx";
 import ContainerBox from '../components/ContainerBox.jsx';
 import ProfileFriends from '../components/ProfileFriends.jsx';
 
+import userGamesData from '../assets/utils/api-test/UserGames.json';
 function ProfilePage() {
+    const userGames = userGamesData;
+    console.log(userGames);
     return (
         <div className='min-h-screen bg-rich-950 text-platinum font-display'>
             <header className='sticky top-0 z-50'>
@@ -21,10 +24,9 @@ function ProfilePage() {
                         <ProfileStatsBar />
                         <ContainerBox title="Platinas recentes">
                             <div className='grid grid-cols-2 gap-6 mt-2'>
-                                <PlatinumGameCard title="The Witcher 3: Wild Hunt" time="127" rating="11" />
-                                <PlatinumGameCard title="Cyberpunk 2077" time="150" rating="10" />
-                                <PlatinumGameCard title="Resident Evil 2" time="89" rating="09" />
-                                <PlatinumGameCard />
+                                {userGames.filter(game => ["completed", "platinum"].includes(game.status)).map(game => (
+                                    <PlatinumGameCard id={game.gameId} time={game.steam.playtimeForever} />
+                                ))}
                             </div>
                             <h3 className='font-semibold text-3xl mt-2 ml-4'>Mais <a href='' className='text-raspberry italic font-extrabold hover:underline'>49</a> jogos</h3>
                         </ContainerBox>

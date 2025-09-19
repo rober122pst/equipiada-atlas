@@ -1,114 +1,114 @@
 [
-  {
-    "userId": "652a1f2e9c1a4b2d3e4f5678",
-    "gameId": "652a1f2e9c1a4b2d3e4f1001",
-    "playedPlatforms": ["PC"],
-    "status": "completed",
-    "addedAt": "2023-01-10T12:00:00.000Z",
-    "steam": {
-      "steamAppId": "292030",
-      "playtimeForever": 1800,
-      "lastPlayed": "2023-02-15T18:00:00.000Z",
-      "playtime_2weeks": 120,
-      "achievementsPercent": 95,
-      "isPlatinum": true
-    },
-    "timesCompleted": 2,
-    "beatedTimestamps": ["2023-02-15T18:00:00.000Z", "2024-05-20T20:00:00.000Z"],
-    "platinumTimestamps": ["2023-02-15T18:00:00.000Z"],
-    "completedTimestamps": ["2023-02-15T18:00:00.000Z", "2024-05-20T20:00:00.000Z"],
-    "rating": {
-      "story": 10,
-      "graphics": 10,
-      "gameplay": 10,
-      "sound": 10
-    },
-    "comment": "Jogo incrível, história envolvente!",
-    "favorite": true,
-    "difficulty": "A"
-  },
-  {
-    "userId": "652a1f2e9c1a4b2d3e4f5678",
-    "gameId": "652a1f2e9c1a4b2d3e4f1002",
-    "playedPlatforms": ["PC", "PS5"],
-    "status": "playing",
-    "addedAt": "2024-06-01T10:00:00.000Z",
-    "steam": {
-      "steamAppId": "1091500",
-      "playtimeForever": 600,
-      "lastPlayed": "2024-09-10T21:00:00.000Z",
-      "playtime_2weeks": 200,
-      "achievementsPercent": 40,
-      "isPlatinum": false
-    },
-    "timesCompleted": 0,
-    "beatedTimestamps": [],
-    "platinumTimestamps": [],
-    "completedTimestamps": [],
-    "rating": {
-      "story": 8,
-      "graphics": 10,
-      "gameplay": 8,
-      "sound": 8
-    },
-    "comment": "Ótimos gráficos, mas bugs ainda incomodam.",
-    "favorite": false,
-    "difficulty": "B"
-  },
-  {
-    "userId": "652a1f2e9c1a4b2d3e4f5678",
-    "gameId": "652a1f2e9c1a4b2d3e4f1003",
-    "playedPlatforms": ["PS4"],
-    "status": "wishlist",
-    "addedAt": "2025-01-01T09:00:00.000Z",
-    "steam": {
-      "steamAppId": "883710",
-      "playtimeForever": 0,
-      "lastPlayed": null,
-      "playtime_2weeks": 0,
-      "achievementsPercent": 0,
-      "isPlatinum": false
-    },
-    "timesCompleted": 0,
-    "beatedTimestamps": [],
-    "platinumTimestamps": [],
-    "completedTimestamps": [],
-    "rating": {
-      "story": null,
-      "graphics": null,
-      "gameplay": null,
-      "sound": null
-    },
-    "comment": "",
-    "favorite": false,
-    "difficulty": "C"
-  },
-  {
-    "userId": "652a1f2e9c1a4b2d3e4f5678",
-    "gameId": "652a1f2e9c1a4b2d3e4f1004",
-    "playedPlatforms": ["PC"],
-    "status": "dropped",
-    "addedAt": "2024-03-15T14:00:00.000Z",
-    "steam": {
-      "steamAppId": "990080",
-      "playtimeForever": 120,
-      "lastPlayed": "2024-04-01T16:00:00.000Z",
-      "playtime_2weeks": 0,
-      "achievementsPercent": 10,
-      "isPlatinum": false
-    },
-    "timesCompleted": 0,
-    "beatedTimestamps": [],
-    "platinumTimestamps": [],
-    "completedTimestamps": [],
-    "rating": {
-      "story": 6,
-      "graphics": 8,
-      "gameplay": 6,
-      "sound": 7
-    },
-    "comment": "Não curti tanto quanto esperava.",
-    "favorite": false,
-    "difficulty": "D"
-  }
+	{
+		"userId": "652a1f2e9c1a4b2d3e4f5678",
+		"gameId": "652a1f2e9c1a4b2d3e4f1001",
+		"playedPlatforms": ["PC"],
+		"status": "completed",
+		"addedAt": "2023-01-10T12:00:00.000Z",
+		"steam": {
+			"steamAppId": "292030",
+			"playtimeForever": 238,
+			"lastPlayed": "2023-02-15T18:00:00.000Z",
+			"playtime_2weeks": 120,
+			"achievementsPercent": 95,
+			"isPlatinum": true
+		},
+		"timesCompleted": 2,
+		"beatedTimestamps": ["2023-02-15T18:00:00.000Z", "2024-05-20T20:00:00.000Z"],
+		"platinumTimestamps": ["2023-02-15T18:00:00.000Z"],
+		"completedTimestamps": ["2023-02-15T18:00:00.000Z", "2024-05-20T20:00:00.000Z"],
+		"rating": {
+			"story": 10,
+			"graphics": 10,
+			"gameplay": 10,
+			"sound": 10
+		},
+		"comment": "Jogo incrível, história envolvente!",
+		"favorite": true,
+		"difficulty": "A"
+	},
+	{
+		"userId": "652a1f2e9c1a4b2d3e4f5678",
+		"gameId": "652a1f2e9c1a4b2d3e4f1002",
+		"playedPlatforms": ["PC", "PS5"],
+		"status": "playing",
+		"addedAt": "2024-06-01T10:00:00.000Z",
+		"steam": {
+			"steamAppId": "1091500",
+			"playtimeForever": 600,
+			"lastPlayed": "2024-09-10T21:00:00.000Z",
+			"playtime_2weeks": 200,
+			"achievementsPercent": 40,
+			"isPlatinum": false
+		},
+		"timesCompleted": 0,
+		"beatedTimestamps": [],
+		"platinumTimestamps": [],
+		"completedTimestamps": [],
+		"rating": {
+			"story": 8,
+			"graphics": 10,
+			"gameplay": 8,
+			"sound": 8
+		},
+		"comment": "Ótimos gráficos, mas bugs ainda incomodam.",
+		"favorite": false,
+		"difficulty": "B"
+	},
+	{
+		"userId": "652a1f2e9c1a4b2d3e4f5678",
+		"gameId": "652a1f2e9c1a4b2d3e4f1003",
+		"playedPlatforms": ["PS4"],
+		"status": "wishlist",
+		"addedAt": "2025-01-01T09:00:00.000Z",
+		"steam": {
+			"steamAppId": "883710",
+			"playtimeForever": 0,
+			"lastPlayed": null,
+			"playtime_2weeks": 0,
+			"achievementsPercent": 0,
+			"isPlatinum": false
+		},
+		"timesCompleted": 0,
+		"beatedTimestamps": [],
+		"platinumTimestamps": [],
+		"completedTimestamps": [],
+		"rating": {
+			"story": null,
+			"graphics": null,
+			"gameplay": null,
+			"sound": null
+		},
+		"comment": "",
+		"favorite": false,
+		"difficulty": "C"
+	},
+	{
+		"userId": "652a1f2e9c1a4b2d3e4f5678",
+		"gameId": "652a1f2e9c1a4b2d3e4f1004",
+		"playedPlatforms": ["PC"],
+		"status": "dropped",
+		"addedAt": "2024-03-15T14:00:00.000Z",
+		"steam": {
+			"steamAppId": "990080",
+			"playtimeForever": 120,
+			"lastPlayed": "2024-04-01T16:00:00.000Z",
+			"playtime_2weeks": 0,
+			"achievementsPercent": 10,
+			"isPlatinum": false
+		},
+		"timesCompleted": 0,
+		"beatedTimestamps": [],
+		"platinumTimestamps": [],
+		"completedTimestamps": [],
+			"rating": {
+			"story": 6,
+			"graphics": 8,
+			"gameplay": 6,
+			"sound": 7
+		},
+		"comment": "Não curti tanto quanto esperava.",
+		"favorite": false,
+		"difficulty": "D"
+	}
 ]
