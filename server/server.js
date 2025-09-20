@@ -2,13 +2,19 @@
 // READ - A recuperação ou visualização de dados já existentes no sistema
 // UPDATE - A modificação de dados que já foram registados no sistema
 // DELETE - A remoção de dados do sistema
+import mongoose from 'mongoose';
+import express from 'express';
+import routes from './src/routes/routes_api.js';
 
-const express = require ('express');
-const routes = require('./src/models/routes');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+
+const app = express();
+app.use(express.json());
+
+dotenv.config();
 
 // Conexão com o MongoDB
-mongoose.connect("mongodb+srv://equipiada00:Equipi4d4_@equipiadaatlas.09gxdrn.mongodb.net/", {
+mongoose.connect(process.env.MONGODB_KEY, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -18,5 +24,6 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
-const app = express();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 app.use(routes);

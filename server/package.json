@@ -1,7 +1,15 @@
 {
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "mongoose": "^8.18.1",
+    "mongoose": "^8.18.1"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.10"
   }
 }

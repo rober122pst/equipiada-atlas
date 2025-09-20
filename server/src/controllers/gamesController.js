@@ -1,4 +1,4 @@
-import Game from "../models/Games";
+import Game from "../models/Games.js";
 export const createGame = async (req, res) => {
     try {
         const game = new Game(req.body);
@@ -6,7 +6,8 @@ export const createGame = async (req, res) => {
         res.status(201).json(game);
     } catch (error) {
         res.status(400).json({ message: error.message });
-    }};
+    }
+};
 export const getGame = async (req, res) => {
     try {
         const game = await Game.findById(req.params.id);
@@ -14,4 +15,5 @@ export const getGame = async (req, res) => {
         res.json(game);
     } catch (error) {
         res.status(500).json({ message: error.message });
-    }}; 
+    }
+}; 

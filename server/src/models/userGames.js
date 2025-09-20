@@ -33,3 +33,5 @@ const userGamesSchema = new mongoose.Schema({
   difficulty: { type : String, enum: ['D', 'C', 'B', 'A', 'S', 'S+'] }, // dificuldade jogada
 
 }, { timestamps: true });
+
+export default mongoose.model("UserGame", userGamesSchema);

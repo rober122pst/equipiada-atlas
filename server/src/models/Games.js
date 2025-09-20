@@ -5,7 +5,8 @@ const gameSchema = new mongoose.Schema({
   genres: [{ type: String }], 
   platforms: [{ type: String }],
   releaseDate: { type: Date }, 
-  coverURL: { type: String },  
+  coverURL: { type: String },
+  bannerURL: { type: String },
   screenshots: [{ type: String }],
   description: { type: String },
   externalIds: {
