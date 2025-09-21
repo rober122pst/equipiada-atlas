@@ -10,4 +10,5 @@ routes.post("/api/users", userController.createUser);
 routes.post("/api/games", gamesController.createGame);
 routes.post("/api/usergames", userGamesController.createUserGame);
 routes.get("/api/usergames", userGamesController.getUserGames);
+routes.get("/api/users/:id", userController.getUserById);
 export default routes;
