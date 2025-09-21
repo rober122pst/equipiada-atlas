@@ -6,7 +6,7 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 function App() {
     return (
         <Routes>
-            <Route path="/" element={<ProfilePage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/auth/register" element={<RegisterPage />} />
         </Routes>

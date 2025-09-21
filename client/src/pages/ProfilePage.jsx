@@ -8,25 +8,31 @@ import Navbar from "../components/Navbar.jsx";
 import ContainerBox from '../components/ContainerBox.jsx';
 import ProfileFriends from '../components/ProfileFriends.jsx';
 
-import userGamesData from '../assets/utils/api-test/UserGames.json';
+import { useEffect, useState } from 'react';
+import { getUserById } from '../services/userService.js';
+import { useParams } from 'react-router-dom'
+
 function ProfilePage() {
-    const userGames = userGamesData;
-    console.log(userGames);
+    const [user, setUser] = useState(null);
+    const { userId } = useParams();
+
+    useEffect(() => {
+        console.log("Chamando usuario");
+        getUserById(userId).then(setUser)
+    });
+
     return (
         <div className='min-h-screen bg-rich-950 text-platinum font-display'>
             <header className='sticky top-0 z-50'>
                 <Navbar />
             </header>
             <main className="m-auto px-8 max-w-[1440px]">
-                <ProfileHeader />
+                <ProfileHeader user={user.profile} />
                 <div className='flex flex-col lg:flex-row mt-6 gap-6'>
                     <div className='flex flex-col gap-6 w-full'>
                         <ProfileStatsBar />
                         <ContainerBox title="Platinas recentes">
                             <div className='grid grid-cols-2 gap-6 mt-2'>
-                                {userGames.filter(game => ["completed", "platinum"].includes(game.status)).map(game => (
-                                    <PlatinumGameCard id={game.gameId} time={game.steam.playtimeForever} />
-                                ))}
                             </div>
                             <h3 className='font-semibold text-3xl mt-2 ml-4'>Mais <a href='' className='text-raspberry italic font-extrabold hover:underline'>49</a> jogos</h3>
                         </ContainerBox>

@@ -1,4 +1,12 @@
-function Profile() {
+function Profile({ name, uProf }) {
+    function countFriends() {
+        return uProf.friends.length;
+    }
+
+    function countFollowers() {
+        return uProf.followers.length;
+    }
+
     return (
         <div className="flex items-end w-full h-[400px] relative">
             <div id="profile-banner" className="
@@ -16,23 +24,23 @@ function Profile() {
                 after:via-rich-950/70
                 after:to-rich-950/50
             ">
-                <img className="object-cover w-full h-full" src="/banner.jpg" alt="banner" />
+                <img className="object-cover w-full h-full" src={uProf.profPicURL} alt="banner" />
             </div>
             <div className="flex justify-between items-end w-full z-10 px-12">
                 <div id="profile-info" className="flex gap-4">
                     <div id="profile-pic" className="h-[155px] w-[155px] border-3 rounded-3xl overflow-hidden border-raspberry">
-                        <img className="object-cover w-full h-full" src="/profile-pic-test.jpg" alt="Profile-pic" />
+                        <img className="object-cover w-full h-full" src={uProf.bannerURL} alt="Profile-pic" />
                     </div>
                     <div className="flex flex-col justify-around">
-                        <h1 className="font-semibold text-6xl">Username</h1>
+                        <h1 className="font-semibold text-6xl">{name}</h1>
                         <div className="flex gap-4">
                             <div>
                                 <p className="font-bold text-gray">Seguidores</p>
-                                <p className="text-raspberry font-semibold text-[20px]">121</p>
+                                <p className="text-raspberry font-semibold text-[20px]">{countFollowers()}</p>
                             </div>
                             <div>
                                 <p className="font-bold text-gray">Amigos</p>
-                                <p className="text-raspberry font-semibold text-[20px]">24</p>
+                                <p className="text-raspberry font-semibold text-[20px]">{countFriends()}</p>
                             </div>
                         </div>
                     </div>
