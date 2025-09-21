@@ -2,7 +2,7 @@ import UserGames from '../models/UserGames.js';
 
 export const createUserGame = async (req, res) => {
     try {
-        const userGame = new UserGames( req.body );
+        const userGame = new UserGames( { ...req.body, userId: req.params.userId } );
         await userGame.save();
         res.status(201).json(userGame);
     } catch (error) {
@@ -12,7 +12,19 @@ export const createUserGame = async (req, res) => {
 
 export const getUserGames = async (req, res) => {
     try {
-        const userGamesList = await UserGames.find({ userId: req.query.userId });
+        const { userId } = req.params;
+        const { gameId, favorite } = req.query;
+
+        let query = { userId };
+
+        if (favorite !== undefined) {
+            query.favorite = favorite === 'true';
+        }
+        if (gameId) {
+            query.gameId = gameId;
+        }
+
+        const userGamesList = await UserGames.find(query);
         res.status(200).json(userGamesList);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -8,7 +8,9 @@ routes.get("/", (req, res) => {
 });
 routes.post("/api/users", userController.createUser);
 routes.post("/api/games", gamesController.createGame);
-routes.post("/api/usergames", userGamesController.createUserGame);
-routes.get("/api/usergames", userGamesController.getUserGames);
+routes.get("/api/games", gamesController.getGames);
+routes.get("/api/games/:id", gamesController.getGameById);
 routes.get("/api/users/:id", userController.getUserById);
+routes.post("/api/users/:userId/usergames", userGamesController.createUserGame);
+routes.get("/api/users/:userId/usergames", userGamesController.getUserGames);
 export default routes;
