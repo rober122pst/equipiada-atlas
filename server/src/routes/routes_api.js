@@ -3,6 +3,9 @@ const routes = express.Router();
 import * as userGamesController from '../controllers/userGamesController.js';
 import * as userController from '../controllers/userController.js';
 import * as gamesController from '../controllers/gamesController.js';
+
+import { registerUser, loginUser } from "../controllers/authController.js";
+
 routes.get("/", (req, res) => {
     res.send("API is running");
 });
@@ -13,4 +16,11 @@ routes.get("/api/games/:id", gamesController.getGameById);
 routes.get("/api/users/:id", userController.getUserById);
 routes.post("/api/users/:userId/usergames", userGamesController.createUserGame);
 routes.get("/api/users/:userId/usergames", userGamesController.getUserGames);
+
+// login e cadastro
+routes.post("/api/users/register", registerUser);
+routes.post("/api/users/login", loginUser);
+
+
+
 export default routes;
