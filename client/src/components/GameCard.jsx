@@ -1,26 +1,22 @@
-import testGameImage from '../assets/the_witcher_3.jpg';
-import { LuClock } from "react-icons/lu";
+import { LuClock, LuTrophy } from "react-icons/lu";
+import PlatIcon from './PlatIcon.jsx';
+import { calcRatingAverage } from '../assets/utils/ratingUtils.js';
 
-function GameCard({ ug, game }) {
+function GameCard({ ug, game, large = false, details = false }) {
     let ratingColor = 'text-gray';
+    let rating = calcRatingAverage(ug.rating, ug.favorite);
 
-    
-    function calcRatingAverage() {
-        let average = Object.values(ug.rating).reduce((a, b) => a + b, 0) / Object.values(ug.rating).length;
-        if (ug.favorite && average === 10) { average += 1; }
-        return average;
-    }
-    
-    if (calcRatingAverage() > 10) {
+    if (rating > 10) {
         ratingColor = 'text-cocoa-brown';
-    }else if (calcRatingAverage() == 10) {
+    }else if (rating == 10) {
         ratingColor = 'text-raspberry';
     }
 
     return (
         <div className='flex items-center gap-2.5 p-2.5'>
-            <div>
-                <img className="h-[90px] w-[90px] rounded-lg object-cover" src={game.coverURL} alt="Game cover" />
+            <div className="relative overflow-hidden">
+                {ug.steam.isPlatinum && (<PlatIcon size={13} />)}
+                <img className={`${large ? 'h-[125px] w-[189px]' : 'h-[90px] w-[90px]'} rounded-lg object-cover`} src={game.coverURL} alt="Game cover" />
             </div>
             <div>
                 <h5 className='font-semibold text-2xl tracking-tight'>{game.title}</h5>
@@ -28,8 +24,11 @@ function GameCard({ ug, game }) {
                     <span><LuClock /></span>{ug.steam.playtimeForever}h jogadas
                 </p>
                 <strong className={`font-extrabold italic text-2xl ${ratingColor}`} >
-                    {calcRatingAverage().toFixed(1)}
+                    {rating.toFixed(1)}
                 </strong>
+                {details && (<p className='flex gap-1 items-center text-sm mt-1'>
+                    <span><LuTrophy /></span>1 platina
+                </p>)}
             </div>
         </div>
     )
