@@ -1,4 +1,4 @@
-import UserGames from '../models/UserGames.js';
+import UserGames from '../models/userGames.js';
 
 export const createUserGame = async (req, res) => {
     try {
