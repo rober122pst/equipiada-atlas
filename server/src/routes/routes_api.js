@@ -3,6 +3,7 @@ const routes = express.Router();
 import * as userGamesController from '../controllers/userGamesController.js';
 import * as userController from '../controllers/userController.js';
 import * as gamesController from '../controllers/gamesController.js';
+import UserGames from '../models/UserGames.js';
 routes.get("/", (req, res) => {
     res.send("API is running");
 });
