@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
     {
 
-        steamId: { type : String, unique: true, sparse: true },
+        steamId: { type : String },
         name: { type : String, required: true }, 
         email: { type : String, unique: true, sparse: true },
         passwordHash: { type : String },
@@ -26,6 +26,8 @@ const userSchema = new mongoose.Schema(
                 instagram: { type : String, default: '' },
             }
         }
-    }
-);
+    }, { timestamps: true });
+
+userSchema.index({ steamId: 1 }, { unique: true, partialFilterExpression: { steamId: { $exists: true, $ne: null } } });
+userSchema.index({ email: 1 }, { unique: true, partialFilterExpression: { email: { $exists: true, $ne: null } } });
 export default mongoose.model("User", userSchema);
