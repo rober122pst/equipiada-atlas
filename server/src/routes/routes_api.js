@@ -4,8 +4,6 @@ import * as userGamesController from '../controllers/userGamesController.js';
 import * as userController from '../controllers/userController.js';
 import * as gamesController from '../controllers/gamesController.js';
 
-import { registerUser, loginUser } from "../controllers/authController.js";
-
 routes.get("/", (req, res) => {
     res.send("API is running");
 });
