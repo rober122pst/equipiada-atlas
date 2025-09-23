@@ -179,6 +179,7 @@
 }
 
 @import "tailwindcss";
+@tailwind utilities;
 
 @theme {
 	--font-display: Metropolis, "sans-serif";
@@ -189,4 +190,23 @@
     --color-raspberry: #E0055D;
     --color-gray: #787878;
     --color-cocoa-brown: #E06B05;
+}
+
+@layer components {
+    .shimmer {
+        @apply
+            bg-rich-900
+            bg-gradient-to-r from-rich-950 via-rich-900 to-rich-950
+            bg-[length:200%_100%]
+            animate-[shimmer_1.5s_infinite];
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    50% {
+        background-position: -200% 0;
+    }
 }

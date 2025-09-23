@@ -1,4 +1,4 @@
-import UserGames from '../models/UserGames.js';
+import UserGames from '../models/userGames.js';
 
 export const createUserGame = async (req, res) => {
     try {
@@ -30,6 +30,69 @@ export const getUserGames = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const getTotalTime = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Busca todos os jogos do usuário
+        const games = await UserGames.find({ userId });
+
+        if (!games || games.length === 0) {
+            return res.status(404).json({ message: "Nenhum jogo encontrado para este usuário." });
+            }
+
+        // Soma o tempo total (em minutos)
+        const totalMinutes = games.reduce((acc, game) => {
+            return acc + (game.steam?.playtimeForever || 0);
+        }, 0);
+
+        // Converte minutos para horas e minutos
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+
+        res.json({
+            userId,
+            totalMinutes,
+            formatted: `${hours}h ${minutes}m`
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Erro ao calcular tempo total de jogo." });
+    }
+}
+
+export const getLastPlayedGames = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { count } = req.query;
+    const limit = parseInt(count) || 10; // número de jogos a retornar, padrão 10
+
+    // busca os jogos do usuário, ordenando pelo campo steam.lastPlayed (mais recentes primeiro)
+    const games = await UserGames.find({ userId, "steam.lastPlayed": { $ne: null } })
+      .sort({ "steam.lastPlayed": -1 }) // -1 = decrescente (mais recente primeiro)
+      .limit(limit); // opcional: retorna só os 10 mais recentes
+
+    if (!games || games.length === 0) {
+      return res.status(404).json({ message: "Nenhum jogo encontrado para este usuário." });
+    }
+
+    res.json({
+      userId,
+      recentGames: games.map(game => ({
+        gameId: game.gameId,
+        steamAppId: game.steam?.steamAppId || null,
+        lastPlayed: game.steam?.lastPlayed || null,
+        playtimeForever: game.steam?.playtimeForever || 0
+      }))
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao buscar jogos recentes do usuário." });
+  }
+}
 
 
 
