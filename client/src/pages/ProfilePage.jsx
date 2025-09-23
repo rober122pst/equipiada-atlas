@@ -41,7 +41,7 @@ function ProfilePage() {
             }
         };
         fetchData();
-    }, [userId, userGames]);
+    }, [userId]);
 
     useEffect(() => {
         if (user) {
