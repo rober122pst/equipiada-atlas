@@ -8,9 +8,12 @@ routes.get("/", (req, res) => {
 });
 routes.post("/api/users", userController.createUser);
 routes.post("/api/games", gamesController.createGame);
-routes.post("/api/usergames", userGamesController.createUserGame);
-routes.get("/api/usergames", userGamesController.getUserGames);
+routes.get("/api/games", gamesController.getGames);
+routes.get("/api/games/:id", gamesController.getGameById);
 routes.get("/api/users/:id", userController.getUserById);
+routes.post("/api/users/:userId/usergames", userGamesController.createUserGame);
+routes.get("/api/users/:userId/usergames", userGamesController.getUserGames);
+
 router.get("/user/:userId/total-playtime", async (req, res) => {
   try {
     const { userId } = req.params;
@@ -70,4 +73,6 @@ router.get("/user/:userId/recent-games", async (req, res) => {
     res.status(500).json({ message: "Erro ao buscar jogos recentes do usuário." });
   }
 });
+
+
 export default routes;

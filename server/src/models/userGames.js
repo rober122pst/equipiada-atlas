@@ -16,6 +16,10 @@ const userGamesSchema = new mongoose.Schema({
     isPlatinum: { type: Boolean, default: false},
   },
 
+  isPlatinum: { type: Boolean, default: false }, // se o usuário tem o troféu platina
+  playtime: { type: Number, default: 0 }, // em minutos
+  beated: { type: Boolean, default: false }, // se o jogo foi completado
+  completed: { type: Boolean, default: false }, // se o jogo foi completado
   timesCompleted: { type: Number, default: 0 }, // Quantas vezes o jogo foi completado
   beatedTimestamps: [{ type: Date }], // Datas em que o jogo foi completado
   platinumTimestamps: [{ type: Date }], // Datas em que o troféu platina foi conquistado
