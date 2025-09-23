@@ -17,9 +17,6 @@ routes.get("/api/users/:id", userController.getUserById);
 routes.post("/api/users/:userId/usergames", userGamesController.createUserGame);
 routes.get("/api/users/:userId/usergames", userGamesController.getUserGames);
 
-// login e cadastro
-routes.post("/api/users/register", registerUser);
-routes.post("/api/users/login", loginUser);
 
 
 
