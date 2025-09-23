@@ -16,7 +16,7 @@ function InputText(props) {
                     className="w-full h-[47px] p-3 mt-1 rounded-[20px] border-2 border-raspberry focus:outline-none focus:border-cocoa-brown transition duration-300"
                     placeholder={props.placeholder || ""}
                     required={props.required || false}
-                    value={value}
+                    value={props.value || value} 
                     onChange={handleChange}
                     name={props.name || ""}
                 />
