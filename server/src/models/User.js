@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
     {
-        steamId: { type : String, required: true, unique: true, sparse: true },
+        steamId: { type : String, unique: true, sparse: true },
         name: { type : String, required: true }, 
-        email: { type : String, required: true, unique: true },
-        passwordHash: { type : String, required: true },
+        email: { type : String, unique: true, sparse: true },
+        passwordHash: { type : String },
         roles: { type : [String], default: ['user'] }, // 'user', 'admin'
         
         profile: {
@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema(
                 instagram: { type : String }, 
             },
             public : { type : Boolean, default: true }, // se o perfil é público
+            bannerURL: { type : String, default: '' },
+            profPicURL: { type : String, default: '' },
+            links: {
+                steam: { type : String, default: '' },
+                spotify: { type : String, default: '' },
+                instagram: { type : String, default: '' },
+            }
         }
     }
 );
