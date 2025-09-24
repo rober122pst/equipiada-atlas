@@ -22,7 +22,7 @@ app.use(cors());
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
 app.use("/games", gamesRoutes)
-app.use("/users", userGamesRoutes)
+app.use("/users-games", userGamesRoutes)
 
 dotenv.config();
 
