@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { registerUser } from "../services/oauthService.js";
+import { getUsers } from "../services/userService.js";
 
 function RegisterPage() {
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState({
         email: "",
         name: "",
@@ -23,6 +23,17 @@ function RegisterPage() {
         const hasSpace = /\s/.test(username);
         return username.length >= minLength && username.length <= maxLength && !hasInvalidChars && !hasSpace;
     }
+    const checkUsernameExists = async (username) => {
+        // TODO fazer com rota
+        const users = await getUsers();
+        return users.some(user => user.name === username);
+    };
+    
+    const checkEmailExists = async (email) => {
+        // TODO fazer com rota
+        const users = await getUsers();
+        return users.some(user => user.name === username);
+    };
 
     const checkEmailFormat = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,7 +56,19 @@ function RegisterPage() {
         switch (name) {
             case "name":
                 if (!checkUsernameRequirements(value)) {
-                    return "O nome de usuário deve ter entre 3 e 20 caracteres.";
+                    if (/\s/.test(value)) {
+                        return "O nome de usuário não pode conter espaços.";
+                    }
+                    if (/[^a-z0-9_.]/.test(value)) {
+                        return "Apenas letras minúsculas, números, _ ou .";
+                    }
+                    if (/[A-Z]/.test(value)) {
+                        return "O nome de usuário não pode conter letras maiúsculas.";
+                    }
+                    if (value.length < 3 || value.length > 20) {
+                        return "O nome de usuário deve ter entre 3 e 20 caracteres.";
+                    }
+                    return "Nome de usuário inválido.";
                 }
                 break;
             case "email":
@@ -88,16 +111,22 @@ function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const newErrors = {};
+        Object.keys(form).forEach((field) => {
+            const error = validateField(field, form[field]);
+            if (error) newErrors[field] = error;
+        });
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) return; // Envia sem erros
+
         const data = {
-            email: formData.get("email"),
-            name: formData.get("name"),
-            password: formData.get("password"),
+            email: form.email,
+            name: form.name,
+            password: form.password,
         };
-        setIsLoading(true);
         await registerUser(data);
-        setIsLoading(false);
-        // Redirecionar ou mostrar mensagem de sucesso
         navigate("/")
     };
 
@@ -147,7 +176,14 @@ function RegisterPage() {
                     />
                     {errors.confirmPassword && <p className="text-red-500 text-sm mb-2">{errors.confirmPassword}</p>}
                     <div className="flex flex-col gap-1.5 m-auto w-fit mt-10">
-                        <CTAButton label={isLoading ? "Criando conta..." : "Criar conta"} type="submit" />
+                        <CTAButton 
+                            label="Criar conta"
+                            type="submit"
+                            disabled={
+                                Object.values(errors).some((err) => err) ||
+                                Object.values(form).some((val) => !val) 
+                            }
+                        />
                         <Link className="text-xs hover:underline" to="/auth/login">Já tem uma conta? Fazer login</Link>
                     </div>
                 </form>
