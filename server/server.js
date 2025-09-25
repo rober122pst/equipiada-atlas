@@ -20,9 +20,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", authRoutes)
-app.use("/users", userRoutes)
 app.use("/games", gamesRoutes)
-app.use("/users-games", userGamesRoutes)
+app.use("/users", userGamesRoutes)
+app.use("/users", userRoutes)
 
 dotenv.config();
 

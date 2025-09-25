@@ -2,7 +2,7 @@ import api from "./axiosConfig";
 
 export const getGames = async (filters) => {
     try {
-        const response = await api.get('/api/games', { params: filters })
+        const response = await api.get('/games', { params: filters })
         return response.data;
     } catch (e) {
         console.error("Error fetching games:", e);
@@ -11,7 +11,7 @@ export const getGames = async (filters) => {
 
 export const getGameById = async (id) => {
     try {
-        const response = await api.get(`/api/games/${id}`); 
+        const response = await api.get(`/games/${id}`); 
         return response.data;
     } catch (e) {
         console.error(`Error fetching game with id ${id}:`, e);
