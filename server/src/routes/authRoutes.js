@@ -1,9 +1,30 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/authController.js";
+import passport from "passport";
+import { registerUser, loginUser, generateToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
-router.post("/login", loginUser)
+router.post("/login", loginUser);
+
+// Google OAuth
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  (req, res) => {
+    const token = generateToken(req.user);
+    res.redirect(`${process.env.CLIENT_URL}/?token=${token}`);
+  }
+);
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_URL);
+});
 
 export default router;

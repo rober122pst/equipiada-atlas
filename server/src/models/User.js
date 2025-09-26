@@ -3,6 +3,7 @@ const userSchema = new mongoose.Schema(
     {
 
         steamId: { type : String, unique: true, sparse: true }, // pode ser nulo
+        googleId: { type: String, unique: true, sparse: true },
         name: { type : String, required: true, unique: true }, 
         email: { type : String, unique: true, sparse: true },
         passwordHash: { type : String },
