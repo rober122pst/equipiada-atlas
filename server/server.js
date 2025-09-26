@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -26,7 +25,7 @@ app.use(cors({
   credentials: true
 }));
 
-//  Sessão para passport steam
+//  sessao para passport steam
 app.use(session({
   secret: process.env.SESSION_SECRET || "uma_senha_qualquer",
   resave: false,
@@ -37,18 +36,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Rotas 
+// rotas 
 app.use("/auth", authRoutes);
 app.use("/games", gamesRoutes);
 app.use("/users", userGamesRoutes);
 app.use("/users", userRoutes);
 app.use(routes);
 
-//  Conexão MongoDB 
+//  conexão MongoDB 
 mongoose.connect(process.env.MONGODB_KEY)
   .then(() => console.log("Connected to Database"))
   .catch(err => console.error("Erro MongoDB:", err));
 
-// Start do servidor 
 const PORT = process.env.PORT || 3000; 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
