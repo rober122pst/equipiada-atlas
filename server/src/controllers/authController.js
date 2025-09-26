@@ -61,7 +61,7 @@ export const generateToken = (user) => {
   );
 };
 
-// ------------------- Steam API -------------------
+// Config Steam API 
 const getSteamProfile = async (steamId) => {
   const apiKey = process.env.STEAM_KEY;
   const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${steamId}`;
