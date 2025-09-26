@@ -22,9 +22,9 @@ const app = express();
 
 // Sessions
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false
 }));
 
 // Passport middleware
@@ -36,7 +36,7 @@ app.use(cors());
 
 app.use("/auth", authRoutes)
 app.use("/games", gamesRoutes)
-app.use("/user-games", userGamesRoutes)
+app.use("/users", userGamesRoutes)
 app.use("/users", userRoutes)
 
 // Conexão com o MongoDB

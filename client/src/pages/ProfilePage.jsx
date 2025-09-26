@@ -31,6 +31,8 @@ function ProfilePage() {
                 const userData = await getUserById(userId);
                 setUser(userData);
                 const userGamesData = await getUserGames(userId);
+                console.log(userData)
+                if(!userGamesData) {return;}
                 setUserGames(userGamesData);
                 const gamesPromises = userGamesData.map(ug => getGameById(ug.gameId));
                 const gamesResults = await Promise.all(gamesPromises);

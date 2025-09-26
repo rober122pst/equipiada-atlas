@@ -2,6 +2,8 @@ import InputText from "../components/InputText.jsx";
 import CTAButton from "../components/CTAButton.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
+import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 
 import { registerUser } from "../services/oauthService.js";
 import { getUsers } from "../services/userService.js";
@@ -187,6 +189,10 @@ function RegisterPage() {
                         <Link className="text-xs hover:underline" to="/auth/login">Já tem uma conta? Fazer login</Link>
                     </div>
                 </form>
+                <div className="flex gap-2 mt-2.5">
+                    <a href="http://localhost:1987/auth/google"><GoogleAuthButton /></a>
+                    <a href=""><SteamAuthButton /></a>
+                </div>
             </div>
         </div>
     );
