@@ -17,9 +17,15 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 import './src/config/passport.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
+app.use(cors({
+	origin: process.env.CLIENT_URL,
+	credentials: true
+}));
+app.use(cookieParser())
 // Sessions
 app.use(session({
 	secret: process.env.SESSION_SECRET,
@@ -32,7 +38,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.json());
-app.use(cors());
 
 app.use("/auth", authRoutes)
 app.use("/games", gamesRoutes)

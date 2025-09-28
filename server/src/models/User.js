@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema(
         
         profile: {
             avatar: { type : String },
-            followers: { type : mongoose.Schema.Types.ObjectId, ref: 'User' },
+            followers: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
+            following: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             friends: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             links: {
                 steam: { type : String },

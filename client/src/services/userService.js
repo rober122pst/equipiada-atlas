@@ -1,3 +1,4 @@
+import { redirect } from "react-router-dom";
 import api from "./axiosConfig";
 
 export const getUsers = async (filters) => {
@@ -17,3 +18,11 @@ export const getUserById = async (id) => {
         console.error(`Error fetching user with id ${id}:`, e);
     }
 };
+
+export const getMe = async () => {
+    const res = fetch(`${import.meta.env.VITE_API_KEY}/users/me`, {
+        method: "GET",
+        credentials: "include",
+    })
+    return res;
+}

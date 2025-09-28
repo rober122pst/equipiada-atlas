@@ -13,12 +13,13 @@ import { GameCardSkeleton } from '../components/skeletons/GameCardSkeleton.jsx';
 import { ProfileStatsBarSkeleton } from '../components/skeletons/ProfileStatsBarSkeleton.jsx';
 
 import { useEffect, useState } from 'react';
-import { getUserById } from '../services/userService.js';
+import { getUserById, getMe } from '../services/userService.js';
 import { getUserGames } from '../services/userGamesService.js';
 import { getGameById } from '../services/gamesService.js';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function ProfilePage() {
+    const navigate = useNavigate()
     const [user, setUser] = useState(null);
     const [userGames, setUserGames] = useState(null);
     const [gamesData, setGamesData] = useState(null);
@@ -53,7 +54,7 @@ function ProfilePage() {
 
     return (
         <div className='min-h-screen bg-rich-950 text-platinum font-display'>
-            <header className='sticky top-0 z-50'>
+            {/* <header className='sticky top-0 z-50'>
                 <Navbar />
             </header>
             <main className="m-auto px-8 max-w-[1440px]">
@@ -112,7 +113,7 @@ function ProfilePage() {
                         <ProfileFriends />
                     </div>
                 </div>
-            </main>
+            </main> */}
         </div>
     )
 }

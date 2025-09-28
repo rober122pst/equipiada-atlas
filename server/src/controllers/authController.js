@@ -29,7 +29,7 @@ export const registerUser = async (req, res) => {
 
     res.status(201).json({
       message: "Usuário criado",
-      user: { id: user._id, name: user.name, email: user.email, profile: user.profile },
+      user: { id: user._id, name: user.name, profile: user.profile },
       token
     });
   } catch (err) {
@@ -45,14 +45,14 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Email não encontrado" });
 
-    const validPassword = await bcrypt.compare(password, user.passwordHash); // Compara as senhas
+    const validPassword = bcrypt.compare(password, user.passwordHash); // Compara as senhas
     if (!validPassword) return res.status(400).json({ message: "Senha incorreta" });
 
     const token = generateToken(user);
 
     res.json({
       message: "Login realizado",
-      user: { id: user._id, name: user.name, email: user.email, profile: user.profile },
+      user: { id: user._id, name: user.name, profile: user.profile },
       token
     });
   } catch (err) {
@@ -61,14 +61,19 @@ export const loginUser = async (req, res) => {
 };
 
 //                  Middleware JWT 
-export const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) return res.sendStatus(401);
+export const authenticateToken = async (req, res, next) => {
+  try {
+    // const token = req.cookies.token;
+    const authHeader = req.headers["authorization"];
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+    if (!token) return res.sendStatus(401).json({ message: "Acesso negado." });
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decode.id).select('-passwordHash -email').lean();
+
     req.user = user;
     next();
-  });
+  } catch (error) {
+    console.error(error)
+  }
 };
