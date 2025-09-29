@@ -13,12 +13,13 @@ import { GameCardSkeleton } from '../components/skeletons/GameCardSkeleton.jsx';
 import { ProfileStatsBarSkeleton } from '../components/skeletons/ProfileStatsBarSkeleton.jsx';
 
 import { useEffect, useState } from 'react';
-import { getUserById } from '../services/userService.js';
+import { getUserById, getMe } from '../services/userService.js';
 import { getUserGames } from '../services/userGamesService.js';
 import { getGameById } from '../services/gamesService.js';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function ProfilePage() {
+    const navigate = useNavigate()
     const [user, setUser] = useState(null);
     const [userGames, setUserGames] = useState(null);
     const [gamesData, setGamesData] = useState(null);
@@ -31,6 +32,8 @@ function ProfilePage() {
                 const userData = await getUserById(userId);
                 setUser(userData);
                 const userGamesData = await getUserGames(userId);
+                console.log(userData)
+                if(!userGamesData) {return;}
                 setUserGames(userGamesData);
                 const gamesPromises = userGamesData.map(ug => getGameById(ug.gameId));
                 const gamesResults = await Promise.all(gamesPromises);

@@ -1,16 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-export { generateToken };
-
-//                  Gerar JWT 
-const generateToken = (user) => {
-  return jwt.sign(
-    { id: user._id, name: user.name, roles: user.roles || ["user"] },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" }
-  );
-};
+import { generateToken } from "../auth/tokenService.js";
 
 //                   Cadastro normal 
 export const registerUser = async (req, res) => {
@@ -28,10 +18,10 @@ export const registerUser = async (req, res) => {
 
     const token = generateToken(user);
 
-    res.status(201).json({
-      message: "Usuário criado",
-      user: { id: user._id, name: user.name, email: user.email, profile: user.profile },
-      token
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict" 
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -46,30 +36,19 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Email não encontrado" });
 
-    const validPassword = await bcrypt.compare(password, user.passwordHash); // Compara as senhas
+    const validPassword = bcrypt.compare(password, user.passwordHash); // Compara as senhas
     if (!validPassword) return res.status(400).json({ message: "Senha incorreta" });
 
     const token = generateToken(user);
 
-    res.json({
-      message: "Login realizado",
-      user: { id: user._id, name: user.name, email: user.email, profile: user.profile },
-      token
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict" 
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-//                  Middleware JWT 
-export const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};

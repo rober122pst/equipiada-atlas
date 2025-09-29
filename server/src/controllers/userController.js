@@ -33,3 +33,15 @@ export const getUserById = async (req, res) => {
         return res.status(500).json({ message: 'Erro no servidor' });
     }
 };
+
+export const getMe = async (req, res) => {
+    try {
+        res.json({
+            id: req.user._id,
+            name: req.user.name,
+            profile: req.user.profile
+        })
+    } catch (err) {
+        console.error("Nenhum usuário autenticado.");
+    }
+}
