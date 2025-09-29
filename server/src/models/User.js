@@ -14,9 +14,18 @@ const userSchema = new mongoose.Schema(
             following: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             friends: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             links: {
-                steam: { type : String },
-                spotify: { type : String },
-                instagram: { type : String }, 
+                steam: { 
+                    name: { type: String },
+                    url: { type: String },
+                },
+                spotify: { 
+                    name: { type: String },
+                    url: { type: String },
+                },
+                instagram: { 
+                    name: { type: String },
+                    url: { type: String },
+                },
             },
             public : { type : Boolean, default: true }, // se o perfil é público
             bannerURL: { type : String, default: '' },

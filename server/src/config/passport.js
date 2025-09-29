@@ -4,6 +4,7 @@ dotenv.config();
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import SteamStrategy from "passport-steam";
+import { getSteamProfile } from "../auth/steamService.js"
 
 import User from "../models/User.js";
 
@@ -63,10 +64,19 @@ passport.use(new SteamStrategy({
         user = new User({
           steamId,
           name: profile.displayName,
-          avatar: profile.photos?.[2]?.value || ""
+          profile: {
+            profPicURL: profile.photos?.[2]?.value || "",
+            links: {
+              steam: {
+                name: profile.displayName,
+                url: profile._json.profileurl
+              }
+            }
+          }
         });
         await user.save();
       }
+      console.log(profile)
       return done(null, user);
     } catch (err) {
       return done(err, null);

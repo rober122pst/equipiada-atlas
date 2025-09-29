@@ -205,19 +205,6 @@ function RegisterPage() {
                         />
                         <Link className="text-xs hover:underline" to="/auth/login">Já tem uma conta? Fazer login</Link>
                     </div>
-                    
-                    
-                    <div className="flex flex-col gap-1.5 m-auto w-fit mt-10">
-                        <button
-                            className="bg-green-500 text-white px-4 py-2 rounded"
-                            onClick={() => window.location.href = "http://localhost:1987/auth/steam/login"}
-                        >
-                            Entrar com Steam
-                        </button>
-                        <Link className="text-xs hover:underline" to="/auth/login">
-                            Já tem uma conta? Fazer login
-                        </Link>
-                    </div>
                 </form>
                 <div className="flex gap-2 mt-2.5">
                     <a href="http://localhost:1987/auth/google"><GoogleAuthButton /></a>
