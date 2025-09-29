@@ -1,5 +1,5 @@
-import { generateToken } from "./tokenService";
-import User from "../models/User";
+import { generateToken } from "./tokenService.js";
+import User from "../models/User.js";
 
 // Config Steam API 
 const getSteamProfile = async (steamId) => {

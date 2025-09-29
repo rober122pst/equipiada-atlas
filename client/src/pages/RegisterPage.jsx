@@ -221,7 +221,7 @@ function RegisterPage() {
                 </form>
                 <div className="flex gap-2 mt-2.5">
                     <a href="http://localhost:1987/auth/google"><GoogleAuthButton /></a>
-                    <a href=""><SteamAuthButton /></a>
+                    <a href="http://localhost:1987/auth/steam"><SteamAuthButton /></a>
                 </div>
             </div>
         </div>

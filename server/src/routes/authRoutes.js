@@ -16,7 +16,7 @@ router.get("/google/callback", passport.authenticate("google", { failureRedirect
 
 router.post("/steam/connect", connectSteamToAccount);
 // Passport Steam
-router.get("/steam/login", passport.authenticate("steam"));
+router.get("/steam", passport.authenticate("steam"));
 // Callback do Steam
 router.get("/steam/return", passport.authenticate("steam", { failureRedirect: "/auth/login" }), steamAuth);
 
