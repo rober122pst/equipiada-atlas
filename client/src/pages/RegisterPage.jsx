@@ -1,10 +1,12 @@
 import InputText from "../components/InputText.jsx";
 import CTAButton from "../components/CTAButton.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
+import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 
 import { registerUser } from "../services/oauthService.js";
-import { getUsers } from "../services/userService.js";
+import { getUsers, getMe } from "../services/userService.js";
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -15,6 +17,23 @@ function RegisterPage() {
         confirmPassword: ""
     })
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await getMe();
+                if(res.status === 200) {
+                    console.log("Logado")
+                    navigate("/")
+                }else {
+                    console.log("Deslogado")
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const checkUsernameRequirements = (username) => {
         const minLength = 3;
@@ -200,6 +219,10 @@ function RegisterPage() {
                         </Link>
                     </div>
                 </form>
+                <div className="flex gap-2 mt-2.5">
+                    <a href="http://localhost:1987/auth/google"><GoogleAuthButton /></a>
+                    <a href=""><SteamAuthButton /></a>
+                </div>
             </div>
         </div>
     );

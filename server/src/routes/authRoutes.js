@@ -9,15 +9,24 @@ import {
   authenticateToken,
   getCurrentUser
 } from "../controllers/authController.js";
+import { googleAuth } from "../auth/googleAuthController.js";
 
 const router = express.Router();
 
-// Registro/Login padrão
+// Tradicional
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 
-// Login/Registro via Steam manual
-router.post("/steam", steamLogin);
+// Google OAuth
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), googleAuth);
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_URL);
+});
+
+router.post("/steam", steamLogin)
 router.post("/steam/connect", connectSteamToAccount);
 
 // Passport Steam
@@ -38,8 +47,5 @@ router.get("/steam/return",
     res.redirect("http://localhost:5173/steam-success");
   }
 );
-
-// usuaroo logado
-router.get("/me", authenticateToken, getCurrentUser);
 
 export default router;

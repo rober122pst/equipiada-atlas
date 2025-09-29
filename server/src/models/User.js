@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
     {
         steamId: { type : String, unique: true, sparse: true }, // pode ser nulo
+        googleId: { type: String, unique: true, sparse: true },
         name: { type : String, required: true, unique: true }, 
         email: { type : String, unique: true, sparse: true },
         passwordHash: { type : String },
@@ -9,7 +10,8 @@ const userSchema = new mongoose.Schema(
         
         profile: {
             avatar: { type : String },
-            followers: { type : mongoose.Schema.Types.ObjectId, ref: 'User' },
+            followers: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
+            following: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             friends: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             links: {
                 steam: { type : String },

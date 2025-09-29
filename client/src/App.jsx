@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/profile/:userId" element={<ProfilePage />} />
+      <Route path="/u/:userId" element={<ProfilePage />} />
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />
       <Route path="/steam-success" element={<SteamSuccess />} /> 
