@@ -9,14 +9,13 @@ const userSchema = new mongoose.Schema(
         roles: { type : [String], default: ['user'] }, // 'user', 'admin'
         
         profile: {
-            avatar: { type : String },
             followers: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             following: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             friends: { type : [mongoose.Schema.Types.ObjectId], ref: 'User' },
             links: {
                 steam: { 
                     name: { type: String },
-                    url: { type: String },
+                    url: { type: String }, 
                 },
                 spotify: { 
                     name: { type: String },
@@ -30,11 +29,6 @@ const userSchema = new mongoose.Schema(
             public : { type : Boolean, default: true }, // se o perfil é público
             bannerURL: { type : String, default: '' },
             profPicURL: { type : String, default: '' },
-            links: {
-                steam: { type : String, default: '' },
-                spotify: { type : String, default: '' },
-                instagram: { type : String, default: '' },
-            }
         }
     }, { timestamps: true });
 
