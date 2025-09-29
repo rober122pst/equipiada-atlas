@@ -49,22 +49,9 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
-
 passport.use(new SteamStrategy({
-    returnURL: "http://localhost:1987/auth/steam/return",
-    realm: "http://localhost:1987/",
+    returnURL: process.env.STEAM_RETURN_URL,
+    realm: process.env.CLEINT_URL,
     apiKey: process.env.STEAM_KEY
   },
   async (identifier, profile, done) => {
@@ -88,7 +75,7 @@ passport.use(new SteamStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
