@@ -54,7 +54,7 @@ function ProfilePage() {
 
     return (
         <div className='min-h-screen bg-rich-950 text-platinum font-display'>
-            {/* <header className='sticky top-0 z-50'>
+            <header className='sticky top-0 z-50'>
                 <Navbar />
             </header>
             <main className="m-auto px-8 max-w-[1440px]">
@@ -113,7 +113,7 @@ function ProfilePage() {
                         <ProfileFriends />
                     </div>
                 </div>
-            </main> */}
+            </main>
         </div>
     )
 }

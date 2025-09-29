@@ -1,15 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-//                  Gerar JWT 
-export const generateToken = (user) => {
-  return jwt.sign(
-    { id: user._id, name: user.name, roles: user.roles || ["user"] },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" }
-  );
-};
+import { generateToken } from "../auth/tokenService.js";
 
 //                   Cadastro normal 
 export const registerUser = async (req, res) => {
@@ -27,10 +18,10 @@ export const registerUser = async (req, res) => {
 
     const token = generateToken(user);
 
-    res.status(201).json({
-      message: "Usuário criado",
-      user: { id: user._id, name: user.name, profile: user.profile },
-      token
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict" 
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -50,30 +41,14 @@ export const loginUser = async (req, res) => {
 
     const token = generateToken(user);
 
-    res.json({
-      message: "Login realizado",
-      user: { id: user._id, name: user.name, profile: user.profile },
-      token
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict" 
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-//                  Middleware JWT 
-export const authenticateToken = async (req, res, next) => {
-  try {
-    // const token = req.cookies.token;
-    const authHeader = req.headers["authorization"];
-    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
-    if (!token) return res.sendStatus(401).json({ message: "Acesso negado." });
 
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decode.id).select('-passwordHash -email').lean();
-
-    req.user = user;
-    next();
-  } catch (error) {
-    console.error(error)
-  }
-};

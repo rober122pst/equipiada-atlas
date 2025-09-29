@@ -20,9 +20,10 @@ export const getUserById = async (id) => {
 };
 
 export const getMe = async () => {
-    const res = fetch(`${import.meta.env.VITE_API_KEY}/users/me`, {
-        method: "GET",
-        credentials: "include",
-    })
-    return res;
+    try {
+        const res = await api.get('users/me')
+        return res;
+    }catch (e) {
+        console.error("Nenhum usuário logado.")
+    }
 }

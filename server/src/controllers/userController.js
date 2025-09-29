@@ -42,7 +42,6 @@ export const getMe = async (req, res) => {
             profile: req.user.profile
         })
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ err });
+        console.error("Nenhum usuário autenticado.");
     }
 }

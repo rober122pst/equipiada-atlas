@@ -1,31 +1,17 @@
 import express from "express";
 import passport from "passport";
-import { registerUser, loginUser, generateToken } from "../controllers/authController.js";
+import { registerUser, loginUser } from "../controllers/authController.js";
+import { googleAuth } from "../auth/googleAuthController.js";
 
 const router = express.Router();
 
+// Tradicional
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // Google OAuth
-router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
-    const token = generateToken(req.user);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict" 
-    });
-    res.redirect(`${process.env.CLIENT_URL}/u/${req.user._id}`);
-  }
-);
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), googleAuth);
 
 router.get("/logout", (req, res) => {
   req.logout();
