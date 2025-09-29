@@ -1,10 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-// CREATE - A criação de novos dados ou registos no sistema
-// READ - A recuperação ou visualização de dados já existentes no sistema
-// UPDATE - A modificação de dados que já foram registados no sistema
-// DELETE - A remoção de dados do sistema
 import mongoose from 'mongoose';
 import express from 'express';
 
@@ -28,9 +24,10 @@ app.use(cors({
 app.use(cookieParser())
 // Sessions
 app.use(session({
-	secret: process.env.SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false
+  secret: process.env.SESSION_SECRET || "uma_senha_qualquer",
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === "production"  } // secure true apenas em produção com HTTPS
 }));
 
 // Passport middleware
@@ -44,16 +41,10 @@ app.use("/games", gamesRoutes)
 app.use("/users", userGamesRoutes)
 app.use("/users", userRoutes)
 
-// Conexão com o MongoDB
-mongoose.connect(process.env.MONGODB_KEY, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+//  conexão MongoDB 
+mongoose.connect(process.env.MONGODB_KEY)
+  .then(() => console.log("Connected to Database"))
+  .catch(err => console.error("Erro MongoDB:", err));
 
-// Conexão com o banco de dados
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to Database"));
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

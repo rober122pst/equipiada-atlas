@@ -3,6 +3,8 @@ dotenv.config();
 
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import SteamStrategy from "passport-steam";
+
 import User from "../models/User.js";
 
 passport.use(
@@ -47,6 +49,31 @@ passport.use(
   )
 );
 
+passport.use(new SteamStrategy({
+    returnURL: process.env.STEAM_RETURN_URL,
+    realm: process.env.CLEINT_URL,
+    apiKey: process.env.STEAM_KEY
+  },
+  async (identifier, profile, done) => {
+    try {
+      const steamId = profile._json.steamid;
+
+      let user = await User.findOne({ steamId });
+      if (!user) {
+        user = new User({
+          steamId,
+          name: profile.displayName,
+          avatar: profile.photos?.[2]?.value || ""
+        });
+        await user.save();
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err, null);
+    }
+  }
+));
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -59,3 +86,5 @@ passport.deserializeUser(async (id, done) => {
     done(err, null);
   }
 });
+
+export default passport;
