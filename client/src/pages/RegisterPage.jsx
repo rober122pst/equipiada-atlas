@@ -42,16 +42,11 @@ function RegisterPage() {
         const hasSpace = /\s/.test(username);
         return username.length >= minLength && username.length <= maxLength && !hasInvalidChars && !hasSpace;
     }
-    const checkUsernameExists = async (username) => {
-        // TODO fazer com rota
-        const users = await getUsers();
-        return users.some(user => user.name === username);
-    };
-    
+
     const checkEmailExists = async (email) => {
         // TODO fazer com rota
         const users = await getUsers();
-        return users.some(user => user.name === username);
+        return users.some(user => user.name === email);
     };
 
     const checkEmailFormat = (email) => {
@@ -145,9 +140,13 @@ function RegisterPage() {
             name: form.name,
             password: form.password,
         };
-        response = await registerUser(data);
-        console.log(response)
-        navigate("/")
+
+        if(checkEmailExists) {
+            setErrors((prev) => ({ ...prev, email: "Já existe outro usuário com este email." }));
+        }else {
+            await registerUser(data);
+            navigate("/")
+        }
     };
 
     return (
