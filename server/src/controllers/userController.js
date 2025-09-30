@@ -45,3 +45,23 @@ export const getMe = async (req, res) => {
         console.error("Nenhum usuário autenticado.");
     }
 }
+export const checkEmailExists = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: "Email é obrigatório." });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (user) {
+            return res.status(200).json({ exists: true, message: "Email já cadastrado." });
+        } else {
+            return res.status(200).json({ exists: false, message: "Verified" });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Erro no servidor." });
+    }
+};
