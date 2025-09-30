@@ -32,7 +32,6 @@ function ProfilePage() {
                 const userData = await getUserById(userId);
                 setUser(userData);
                 const userGamesData = await getUserGames(userId);
-                console.log(userData)
                 if(!userGamesData) {return;}
                 setUserGames(userGamesData);
                 const gamesPromises = userGamesData.map(ug => getGameById(ug.gameId));
@@ -45,10 +44,11 @@ function ProfilePage() {
         };
         fetchData();
     }, [userId]);
-
+    
     useEffect(() => {
         if (user) {
             document.title = `${user.name} | LoGG`;
+            console.log(user.profile)
         }
     }, [user]);
 
@@ -95,7 +95,7 @@ function ProfilePage() {
                     </div>
                     <div className='flex flex-col gap-6 lg:max-w-[468px] w-full'>
                         <ContainerBox title="Links">
-                            <ProfileLinks />
+                            {user ? <ProfileLinks steamLink={user.profile.links.steam} /> : <p>Carregando...</p>}
                         </ContainerBox>
                         <ContainerBox title="Favoritos">
                             {userGames && userGames.length > 0 ? (
