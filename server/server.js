@@ -4,7 +4,7 @@ dotenv.config();
 import mongoose from 'mongoose';
 import express from 'express';
 
-import authRoutes from './src/routes/authRoutes.js'
+import authRoutes from './src/auth/authRoutes.js'
 import userRoutes from './src/routes/userRoutes.js'
 import gamesRoutes from './src/routes/gamesRoutes.js'
 import userGamesRoutes from './src/routes/userGamesRoutes.js'

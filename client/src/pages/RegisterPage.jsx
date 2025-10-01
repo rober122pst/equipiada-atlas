@@ -6,7 +6,7 @@ import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 
 import { registerUser } from "../services/oauthService.js";
-import { getUsers, getMe } from "../services/userService.js";
+import { getMe } from "../services/userService.js";
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -38,16 +38,8 @@ function RegisterPage() {
     const checkUsernameRequirements = (username) => {
         const minLength = 3;
         const maxLength = 20;
-        const hasInvalidChars = /[^a-z0-9_.]/.test(username);
-        const hasSpace = /\s/.test(username);
-        return username.length >= minLength && username.length <= maxLength && !hasInvalidChars && !hasSpace;
+        return username.length >= minLength && username.length <= maxLength;
     }
-
-    const checkEmailExists = async (email) => {
-        // TODO fazer com rota
-        const users = await getUsers();
-        return users.some(user => user.name === email);
-    };
 
     const checkEmailFormat = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -70,19 +62,7 @@ function RegisterPage() {
         switch (name) {
             case "name":
                 if (!checkUsernameRequirements(value)) {
-                    if (/\s/.test(value)) {
-                        return "O nome de usuário não pode conter espaços.";
-                    }
-                    if (/[^a-z0-9_.]/.test(value)) {
-                        return "Apenas letras minúsculas, números, _ ou .";
-                    }
-                    if (/[A-Z]/.test(value)) {
-                        return "O nome de usuário não pode conter letras maiúsculas.";
-                    }
-                    if (value.length < 3 || value.length > 20) {
-                        return "O nome de usuário deve ter entre 3 e 20 caracteres.";
-                    }
-                    return "Nome de usuário inválido.";
+                    return "O nome de usuário deve ter entre 3 e 20 caracteres.";
                 }
                 break;
             case "email":
@@ -141,11 +121,11 @@ function RegisterPage() {
             password: form.password,
         };
 
-        if(checkEmailExists) {
-            setErrors((prev) => ({ ...prev, email: "Já existe outro usuário com este email." }));
-        }else {
-            await registerUser(data);
-            navigate("/")
+        try {
+            const user = await registerUser(data);
+            navigate("/");
+        } catch (error) {
+            setErrors((prev) => ({ ...prev, email: error.response.data.message }));
         }
     };
 
@@ -206,9 +186,9 @@ function RegisterPage() {
                         <Link className="text-xs hover:underline" to="/auth/login">Já tem uma conta? Fazer login</Link>
                     </div>
                 </form>
-                <div className="flex gap-2 mt-2.5">
-                    <a href="https://logg-m43c.onrender.com/auth/google"><GoogleAuthButton /></a>
-                    <a href="https://logg-m43c.onrender.com/auth/steam"><SteamAuthButton /></a>
+                <div className="flex gap-2 mt-6">
+                    <GoogleAuthButton />
+                    <SteamAuthButton />
                 </div>
             </div>
         </div>
