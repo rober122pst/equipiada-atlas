@@ -1,8 +1,8 @@
 import express from "express";
 import passport from "passport";
-import * as auth from "../auth/authController.js";
-import { googleAuth } from "../auth/googleAuthController.js";
-import { connectSteamToAccount, steamAuth } from "../auth/steamAuthController.js";
+import * as auth from "./authController.js";
+import { googleAuth } from "./googleAuthController.js";
+import { connectSteamToAccount, steamAuth } from "./steamAuthController.js";
 
 const router = express.Router();
 
