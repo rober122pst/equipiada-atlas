@@ -5,7 +5,6 @@ import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMe } from "../services/userService.js";
 import { loginUser } from "../services/oauthService.js";
 
 function LoginPage() {
@@ -15,23 +14,6 @@ function LoginPage() {
         password: ""
     })
     const [errors, setErrors] = useState({});
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await getMe();
-                if(res.status === 200) {
-                    console.log("Logado")
-                    navigate("/")
-                }else {
-                    console.log("Deslogado")
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,7 +35,7 @@ function LoginPage() {
             navigate("/");
         } catch (error) {
             console.log(error)
-            setErrors((prev) => ({ ...prev, email: error.response.data.message }));
+            setErrors((prev) => ({ ...prev, credentials: error.response.data.message }));
         }
     };
 
@@ -79,6 +61,7 @@ function LoginPage() {
                         required={true}
                         name="password"
                     />
+                    {errors.credentials && <p className="text-red-500 text-sm mb-2">{errors.credentials}</p>}
                     <div className="flex flex-col gap-1.5 m-auto w-fit mt-10">
                         <CTAButton 
                             label="Entrar" 

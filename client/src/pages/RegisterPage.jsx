@@ -6,7 +6,6 @@ import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 
 import { registerUser } from "../services/oauthService.js";
-import { getMe } from "../services/userService.js";
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -17,23 +16,6 @@ function RegisterPage() {
         confirmPassword: ""
     })
     const [errors, setErrors] = useState({});
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await getMe();
-                if(res.status === 200) {
-                    console.log("Logado")
-                    navigate("/")
-                }else {
-                    console.log("Deslogado")
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, []);
 
     const checkUsernameRequirements = (username) => {
         const minLength = 3;

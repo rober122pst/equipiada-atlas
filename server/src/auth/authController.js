@@ -44,11 +44,11 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Email ou senha incorretos" });
+    if (!user) return res.status(400).json({ message: "Nenhum usuário com esse email encontrado" });
 
     const validPassword = await bcrypt.compare(password, user.passwordHash);
     console.log(validPassword); 
-    if (!validPassword) return res.status(400).json({ message: "Email ou senha incorretos" });
+    if (!validPassword) return res.status(400).json({ message: "Senha incorreta" });
 
     const token = generateToken(user);
 
