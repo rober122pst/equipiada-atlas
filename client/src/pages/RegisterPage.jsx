@@ -5,10 +5,11 @@ import { useState, useEffect } from "react";
 import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 
-import { registerUser } from "../services/oauthService.js";
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 function RegisterPage() {
     const navigate = useNavigate();
+    const { register, isLoggedIn } = useAuth();
     const [form, setForm] = useState({
         email: "",
         name: "",
@@ -16,6 +17,10 @@ function RegisterPage() {
         confirmPassword: ""
     })
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if(isLoggedIn) navigate('/', { replace: true });
+    }, [isLoggedIn, navigate])
 
     const checkUsernameRequirements = (username) => {
         const minLength = 3;
@@ -104,7 +109,7 @@ function RegisterPage() {
         };
 
         try {
-            const user = await registerUser(data);
+            await register(data)
             navigate("/");
         } catch (error) {
             setErrors((prev) => ({ ...prev, email: error.response.data.message }));

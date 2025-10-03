@@ -1,11 +1,11 @@
 import InputText from "../components/InputText.jsx";
 import CTAButton from "../components/CTAButton.jsx";
-import { Link } from "react-router-dom";
+import { Link, replace } from "react-router-dom";
 import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { loginUser } from "../services/oauthService.js";
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -14,6 +14,11 @@ function LoginPage() {
         password: ""
     })
     const [errors, setErrors] = useState({});
+    const { login, isLoggedIn } = useAuth();
+
+    useEffect(() => {
+        if(isLoggedIn) navigate('/', { replace: true });
+    }, [isLoggedIn, navigate])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,13 +34,11 @@ function LoginPage() {
         };
 
         try {
-            console.log("Inciando login")
-            const user = await loginUser(data);
-            console.log(user)
+            await login(data);
             navigate("/");
         } catch (error) {
-            console.log(error)
-            setErrors((prev) => ({ ...prev, credentials: error.response.data.message }));
+            console.error(error)
+            setErrors((prev) => ({ ...prev, credentials: error.response.data?.message || 'Erro desconhecido' }));
         }
     };
 
