@@ -4,11 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GoogleAuthButton } from "../components/GoogleAuthButton.jsx";
 import { SteamAuthButton } from "../components/SteamAuthButton.jsx";
-
-import { registerUser } from "../services/oauthService.js";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 function RegisterPage() {
     const navigate = useNavigate();
+    const { register, isLoggedIn } = useAuth();
     const [form, setForm] = useState({
         email: "",
         name: "",
@@ -16,6 +17,11 @@ function RegisterPage() {
         confirmPassword: ""
     })
     const [errors, setErrors] = useState({});
+    const [isRequesting, setIsRequesting] = useState(false);
+
+    useEffect(() => {
+        if(isLoggedIn) navigate('/', { replace: true });
+    }, [isLoggedIn, navigate])
 
     const checkUsernameRequirements = (username) => {
         const minLength = 3;
@@ -87,6 +93,9 @@ function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setErrors({});
+        setIsRequesting(true);
+        
         const newErrors = {};
         Object.keys(form).forEach((field) => {
             const error = validateField(field, form[field]);
@@ -104,10 +113,12 @@ function RegisterPage() {
         };
 
         try {
-            const user = await registerUser(data);
+            await register(data)
             navigate("/");
         } catch (error) {
             setErrors((prev) => ({ ...prev, email: error.response.data.message }));
+        } finally {
+            setIsRequesting(false);
         }
     };
 
@@ -158,14 +169,15 @@ function RegisterPage() {
                     {errors.confirmPassword && <p className="text-red-500 text-sm mb-2">{errors.confirmPassword}</p>}
                     <div className="flex flex-col gap-1.5 m-auto w-fit mt-10">
                         <CTAButton 
-                            label="Criar conta"
+                            label={isRequesting ? <AiOutlineLoading3Quarters className="animate-spin" /> : "Criar conta" }
                             type="submit"
                             disabled={
                                 Object.values(errors).some((err) => err) ||
-                                Object.values(form).some((val) => !val) 
+                                Object.values(form).some((val) => !val) ||
+                                isRequesting
                             }
                         />
-                        <Link className="text-xs hover:underline" to="/auth/login">Já tem uma conta? Fazer login</Link>
+                        <Link className="text-xs hover:underline" to="/login">Já tem uma conta? Fazer login</Link>
                     </div>
                 </form>
                 <div className="flex gap-2 mt-6">
