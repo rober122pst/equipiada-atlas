@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         };
         checkAuth();
     }, []);
-
+    
     const login = async (data) => {
         const res = await loginUser(data);
         setIsLoggedIn(true);

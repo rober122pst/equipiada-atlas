@@ -53,7 +53,7 @@ function ProfilePage() {
     }, [user]);
 
     return (
-        <div className='min-h-screen bg-rich-950 text-platinum font-display'>
+        <div>
             <header className='sticky top-0 z-50'>
                 <Navbar />
             </header>

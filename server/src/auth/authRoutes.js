@@ -12,17 +12,18 @@ router.post("/login", auth.loginUser);
 
 // Google OAuth
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/auth/login" }), googleAuth);
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleAuth);
 
 router.post("/steam/connect", connectSteamToAccount);
 // Passport Steam
 router.get("/steam", passport.authenticate("steam"));
 // Callback do Steam
-router.get("/steam/return", passport.authenticate("steam", { failureRedirect: "/auth/login" }), steamAuth);
+router.get("/steam/return", passport.authenticate("steam", { failureRedirect: "/login" }), steamAuth);
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect(process.env.CLIENT_URL);
+  res.clearCookie('token');
+  res.redirect(`${process.env.CLIENT_URL}/login`);
 });
 
 
