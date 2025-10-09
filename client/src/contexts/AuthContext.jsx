@@ -29,12 +29,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (data) => {
         const res = await loginUser(data);
         setIsLoggedIn(true);
-        return res.data.id
+        return res.id
     }
     
     const register = async (data) => {
         const res = await registerUser(data);
-        return res.data.id
+        return res.id
     }
 
     return (

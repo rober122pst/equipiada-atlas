@@ -35,14 +35,12 @@ export const getUserById = async (req, res) => {
 };
 
 export const getMe = async (req, res) => {
-    try {
+    if (req.user) {
         res.json({
             id: req.user._id,
             name: req.user.name,
             profile: req.user.profile
         })
-    } catch (err) {
-        console.error("Nenhum usuário autenticado.");
     }
 }
 export const checkEmailExists = async (req, res) => {

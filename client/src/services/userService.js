@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import api from "./axiosConfig";
 
 export const getUsers = async (filters) => {
@@ -24,6 +23,6 @@ export const getMe = async () => {
         const res = await api.get('users/me')
         return res;
     }catch (e) {
-        console.error("Nenhum usuário logado.")
+        console.error("Nenhum usuário logado.", e)
     }
 }
