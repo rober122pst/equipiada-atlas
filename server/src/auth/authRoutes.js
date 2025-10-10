@@ -12,13 +12,13 @@ router.post("/login", auth.loginUser);
 
 // Google OAuth
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleAuth);
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: `${process.env.CLIENT_URL}/login` }), googleAuth);
 
 router.post("/steam/connect", connectSteamToAccount);
 // Passport Steam
 router.get("/steam", passport.authenticate("steam"));
 // Callback do Steam
-router.get("/steam/return", passport.authenticate("steam", { failureRedirect: "/login" }), steamAuth);
+router.get("/steam/return", passport.authenticate("steam", { failureRedirect: `${process.env.CLIENT_URL}/login` }), steamAuth);
 
 router.get("/logout", (req, res) => {
   req.logout();

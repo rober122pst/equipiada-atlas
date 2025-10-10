@@ -1,11 +1,29 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { FaChevronDown } from "react-icons/fa6";
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
     const { isLoggedIn, user } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef()
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                console.log(menuRef.current, e.target)
+                setIsOpen(false);
+            }
+        };
+        
+        document.addEventListener("mousedown", handleClickOutside);
+        
+        return () => {
+            document.addEventListener("mousedown", handleClickOutside)
+        }
+    }, []);
+    
     function UserProfile() {
         return (
             <div className="flex items-center gap-2">
@@ -14,11 +32,11 @@ function Navbar() {
             </div>
         )
     }
-
+    
     function MenuNavbar() {
         return (
             <ul className="flex flex-col gap-5 pt-5 sm:flex-row sm:gap-0 sm:items-center sm:pt-0">
-                <li>OI</li>       
+                <li><Link to={`u/${user.id}`}>Perfil</Link></li>       
                 <li>OI</li>       
                 <li>OI</li>       
                 <li>OI</li>       
@@ -26,6 +44,7 @@ function Navbar() {
         );
     }
 
+    
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     }
@@ -35,14 +54,14 @@ function Navbar() {
             <div>
                 <h1 className="text-[40px] font-black italic text-raspberry">LOGO</h1>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" ref={menuRef}>
                 {user && isLoggedIn ? <UserProfile /> : "Sair"}
                 <button onClick={toggleMenu} className="focus:outline-none p-2 cursor-pointer">
                     <FaChevronDown />
                 </button>
-                <nav className={`${isOpen ? 'scale-y-0' : 'scale-y-100'} h-48 w-64 bg-rich-900 rounded-b-2xl overflow-hidden fixed top-[90px] right-0 duration-500 ease-out`}>
+                {user && <nav className={`${isOpen ? 'h-48' : 'h-0'} w-64 bg-rich-900 rounded-b-2xl overflow-hidden fixed top-[90px] right-0 duration-500 ease-out`}>
                     <MenuNavbar />
-                </nav>
+                </nav>}
             </div>
         </header>
     );
