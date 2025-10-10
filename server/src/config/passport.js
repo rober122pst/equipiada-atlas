@@ -52,7 +52,7 @@ passport.use(
 
 passport.use(new SteamStrategy({
     returnURL: process.env.STEAM_RETURN_URL,
-    realm: process.env.CLEINT_URL,
+    realm: process.env.CLIENT_URL,
     apiKey: process.env.STEAM_KEY
   },
   async (identifier, profile, done) => {
