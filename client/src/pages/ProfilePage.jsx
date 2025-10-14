@@ -13,37 +13,15 @@ import { GameCardSkeleton } from '../components/skeletons/GameCardSkeleton.jsx';
 import { ProfileStatsBarSkeleton } from '../components/skeletons/ProfileStatsBarSkeleton.jsx';
 
 import { useEffect, useState } from 'react';
-import { getUserById } from '../services/userService.js';
-import { getUserGames } from '../services/userGamesService.js';
-import { getGameById } from '../services/gamesService.js';
 import {  useParams } from 'react-router-dom'
+import { useUserGames, useUserProfile } from '../hooks'
 
 function ProfilePage() {
-    const [user, setUser] = useState(null);
-    const [userGames, setUserGames] = useState(null);
-    const [gamesData, setGamesData] = useState(null);
-
     const { userId } = useParams();
+    const { user, loading: loadingUser } = useUserProfile(userId)
+    const { userGames, loading: loadingGames } = useUserGames(userId); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userData = await getUserById(userId);
-                setUser(userData);
-                const userGamesData = await getUserGames(userId);
-                if(!userGamesData) {return;}
-                setUserGames(userGamesData);
-                const gamesPromises = userGamesData.map(ug => getGameById(ug.gameId));
-                const gamesResults = await Promise.all(gamesPromises);
-                setGamesData(gamesResults);
-                console.log(userGames)
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, [userId]);
-    
+
     useEffect(() => {
         if (user) {
             document.title = `${user.name} | LoGG`;
@@ -54,15 +32,15 @@ function ProfilePage() {
     return (
         <div>
             <main className="m-auto px-8 max-w-[1440px]">
-                {user ? <ProfileHeader name={user.name} uProf={user.profile} /> : <ProfileHeaderSkeleton />}
+                {!loadingUser ? <ProfileHeader name={user.name} uProf={user.profile} /> : <ProfileHeaderSkeleton />}
                     <div className='flex flex-col lg:flex-row mt-6 gap-6'>
                     <div className='flex flex-col gap-6 w-full'>
-                        {userGames ? userGames.length > 0 && <ProfileStatsBar userGames={userGames} /> : <ProfileStatsBarSkeleton />}
+                        {!loadingGames ? <ProfileStatsBar userGames={userGames} /> : <ProfileStatsBarSkeleton />}
                         <ContainerBox title="Platinas recentes">
                             <div className='grid grid-cols-2 gap-6 mt-2'>
-                                {userGames && userGames.length > 0 ? (
-                                    gamesData && gamesData.map((game, index) => (
-                                        userGames[index].steam.isPlatinum && <PlatinumGameCard key={game.id} ug={userGames[index]} game={game} />
+                                {!loadingGames ? (
+                                    userGames.map((game) => (
+                                        game.steam.isPlatinum && <PlatinumGameCard key={game._id} ug={game} game={game.game} />
                                     ))
                                 ) : (
                                     <>

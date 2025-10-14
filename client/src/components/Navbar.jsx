@@ -35,7 +35,6 @@ function Navbar() {
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (menuRef.current && !menuRef.current.contains(e.target)) {
-                console.log(menuRef.current, e.target)
                 setIsOpen(false);
             }
         };
