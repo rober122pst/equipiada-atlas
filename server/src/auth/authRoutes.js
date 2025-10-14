@@ -21,9 +21,13 @@ router.get("/steam", passport.authenticate("steam"));
 router.get("/steam/return", passport.authenticate("steam", { failureRedirect: `${process.env.CLIENT_URL}/login` }), steamAuth);
 
 router.get("/logout", (req, res) => {
-  req.logout();
-  res.clearCookie('token');
-  res.redirect(`${process.env.CLIENT_URL}/login`);
+	req.logout((err) => {
+		if (err) {
+			return next(err);
+		}
+		res.clearCookie('token');
+		res.redirect(`${process.env.CLIENT_URL}/login`);
+	});
 });
 
 
