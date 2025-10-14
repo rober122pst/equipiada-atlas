@@ -3,7 +3,7 @@ dotenv.config();
 
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import SteamStrategy from "passport-steam";
+import { Strategy as SteamStrategy } from "passport-steam";
 import { getSteamProfile } from "../auth/steamService.js"
 
 import User from "../models/User.js";
@@ -50,10 +50,14 @@ passport.use(
   )
 );
 
+const steamReturnUrl = process.env.STEAM_RETURN_URL;
+const steamRealm = new URL(steamReturnUrl).origin + '/';
+
 passport.use(new SteamStrategy({
-    returnURL: process.env.STEAM_RETURN_URL,
-    realm: process.env.CLIENT_URL,
-    apiKey: process.env.STEAM_KEY
+    returnURL: steamReturnUrl,
+    realm: steamRealm,
+    apiKey: process.env.STEAM_KEY,
+    stateless: true
   },
   async (identifier, profile, done) => {
     try {
@@ -76,7 +80,6 @@ passport.use(new SteamStrategy({
         });
         await user.save();
       }
-      console.log(profile)
       return done(null, user);
     } catch (err) {
       return done(err, null);

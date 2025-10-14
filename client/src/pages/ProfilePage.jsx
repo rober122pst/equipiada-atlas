@@ -13,13 +13,12 @@ import { GameCardSkeleton } from '../components/skeletons/GameCardSkeleton.jsx';
 import { ProfileStatsBarSkeleton } from '../components/skeletons/ProfileStatsBarSkeleton.jsx';
 
 import { useEffect, useState } from 'react';
-import { getUserById, getMe } from '../services/userService.js';
+import { getUserById } from '../services/userService.js';
 import { getUserGames } from '../services/userGamesService.js';
 import { getGameById } from '../services/gamesService.js';
-import { useNavigate, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 
 function ProfilePage() {
-    const navigate = useNavigate()
     const [user, setUser] = useState(null);
     const [userGames, setUserGames] = useState(null);
     const [gamesData, setGamesData] = useState(null);
@@ -53,10 +52,7 @@ function ProfilePage() {
     }, [user]);
 
     return (
-        <div className='min-h-screen bg-rich-950 text-platinum font-display'>
-            <header className='sticky top-0 z-50'>
-                <Navbar />
-            </header>
+        <div>
             <main className="m-auto px-8 max-w-[1440px]">
                 {user ? <ProfileHeader name={user.name} uProf={user.profile} /> : <ProfileHeaderSkeleton />}
                     <div className='flex flex-col lg:flex-row mt-6 gap-6'>

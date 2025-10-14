@@ -39,6 +39,5 @@ export const steamAuth = (req, res) => {
       sameSite: "strict" 
     });
 
-    res.redirect(`${process.env.CLIENT_URL}/u/${req.user._id}`);
-    return res.status(200).json({ message: "Login com Steam bem sucedido." });
+    res.redirect(`${process.env.CLIENT_URL}/`);
 };
