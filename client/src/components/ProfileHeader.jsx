@@ -24,12 +24,12 @@ function Profile({ name, uProf }) {
                 after:via-rich-950/70
                 after:to-rich-950/50
             ">
-                <img className="object-cover w-full h-full" src={uProf?.bannerURL} alt="banner" />
+                <img className="object-cover w-full h-full" src={uProf.bannerURL ? uProf.bannerURL : 'https://placehold.co/1920x1080/14171F/E0055D.webp?text=LoGG'} alt="banner" />
             </div>
             <div className="flex justify-between items-end w-full z-10 px-12">
                 <div id="profile-info" className="flex gap-4">
                     <div id="profile-pic" className="h-[155px] w-[155px] border-3 rounded-3xl overflow-hidden border-raspberry">
-                        <img className="object-cover w-full h-full" src={uProf?.profPicURL} alt="Profile-pic" />
+                        <img className="object-cover w-full h-full" src={uProf.profPicURL ? uProf.profPicURL : 'https://placehold.co/155x155/14171F/E0055D.webp?text=LoGG'} alt="Profile-pic" />
                     </div>
                     <div className="flex flex-col justify-around">
                         <h1 className="font-semibold text-6xl">{name}</h1>

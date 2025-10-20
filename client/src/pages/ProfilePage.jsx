@@ -12,14 +12,17 @@ import { ProfileHeaderSkeleton } from '../components/skeletons/ProfileHeaderSkel
 import { GameCardSkeleton } from '../components/skeletons/GameCardSkeleton.jsx';
 import { ProfileStatsBarSkeleton } from '../components/skeletons/ProfileStatsBarSkeleton.jsx';
 
+import { PlatinumSectionEmpty, FavoritesSectionEmpty } from '../components/empty_states';
+
 import { useEffect, useState } from 'react';
-import {  useParams } from 'react-router-dom'
+import {  Link, useParams } from 'react-router-dom'
 import { useUserGames, useUserProfile } from '../hooks'
 
 function ProfilePage() {
     const { userId } = useParams();
     const { user, loading: loadingUser } = useUserProfile(userId)
-    const { userGames, loading: loadingGames } = useUserGames(userId); 
+    const { userGames, loading: loadingGames } = useUserGames(userId);
+    const [favorites, setFavorites] = useState([]);
 
 
     useEffect(() => {
@@ -29,6 +32,12 @@ function ProfilePage() {
         }
     }, [user]);
 
+    useEffect(() => {
+        if (userGames) {
+            setFavorites(userGames.filter(ug => ug.favorite).map(ug => ug.game));
+        }
+    }, [userGames]);
+
     return (
         <div>
             <main className="m-auto px-8 max-w-[1440px]">
@@ -37,27 +46,37 @@ function ProfilePage() {
                     <div className='flex flex-col gap-6 w-full'>
                         {!loadingGames ? <ProfileStatsBar userGames={userGames} /> : <ProfileStatsBarSkeleton />}
                         <ContainerBox title="Platinas recentes">
-                            <div className='grid grid-cols-2 gap-6 mt-2'>
-                                {!loadingGames ? (
-                                    userGames.map((game) => (
-                                        game.steam.isPlatinum && <PlatinumGameCard key={game._id} ug={game} game={game.game} />
-                                    ))
-                                ) : (
+                            {!loadingGames ? (
+                                userGames.length > 0 ? (
                                     <>
-                                        <SkeletonBase className='w-full h-[177px]' />
-                                        <SkeletonBase className='w-full h-[177px]' />
-                                        <SkeletonBase className='w-full h-[177px]' />
-                                        <SkeletonBase className='w-full h-[177px]' />
+                                        <div className='grid grid-cols-2 gap-6 mt-2'>
+                                            {userGames.map((game) => (
+                                                game.steam.isPlatinum && <PlatinumGameCard key={game._id} ug={game} game={game.game} />
+                                            ))}
+                                        </div>
+                                        {userGames.length > 4 && <h3 className='font-semibold text-3xl mt-2 ml-4'>Mais <Link to={`u/${userId}/games`} className='text-raspberry italic font-extrabold hover:underline'>{userGames.length - 4}</Link> jogos</h3>}
                                     </>
-                                )}
-                            </div>
-                            <h3 className='font-semibold text-3xl mt-2 ml-4'>Mais <a href='' className='text-raspberry italic font-extrabold hover:underline'>49</a> jogos</h3>
+                                ) : (
+                                    <div className='w-full my-2'>
+                                        <PlatinumSectionEmpty />
+                                    </div>
+                                ) 
+                            ) : (
+                                <>
+                                    <SkeletonBase className='w-full h-[177px]' />
+                                    <SkeletonBase className='w-full h-[177px]' />
+                                    <SkeletonBase className='w-full h-[177px]' />
+                                    <SkeletonBase className='w-full h-[177px]' />
+                                </>
+                            )}
                         </ContainerBox>
                         <ContainerBox title="Atividades recentes">
-                            {userGames && userGames.length > 0 ? (
-                                gamesData && gamesData.map((game, index) => (
-                                    <GameCard key={game.id} ug={userGames[index]} game={game} large details />
-                                ))
+                            {!loadingGames ? (
+                                userGames.length > 0 ? userGames.map((game) => (
+                                    <GameCard key={game._id} ug={game} game={game.game} large details />
+                                )) : (
+                                    <p className='text-gray'>Nenhuma atividade recente encontrada.</p>   
+                                )
                             ) : (
                                 <>
                                     <GameCardSkeleton large details />
@@ -69,13 +88,20 @@ function ProfilePage() {
                     </div>
                     <div className='flex flex-col gap-6 lg:max-w-[468px] w-full'>
                         <ContainerBox title="Links">
-                            {user ? <ProfileLinks steamLink={user.profile.links.steam} /> : <p>Carregando...</p>}
+                            {user ? <ProfileLinks links={user.profile.links} /> : <p>Carregando...</p>}
                         </ContainerBox>
                         <ContainerBox title="Favoritos">
-                            {userGames && userGames.length > 0 ? (
-                                gamesData && gamesData.map((game, index) => (
-                                    userGames[index].favorite && <GameCard key={game.id} ug={userGames[index]} game={game} />
-                                ))
+                            {!loadingGames ? (
+                                favorites.length > 0 ? (
+                                    favorites.map((game) => (
+                                        <GameCard key={game._id} ug={game} game={game.game} />
+                                    ))
+                                ) : (
+                                    <>
+                                        <p className='text-gray'>Nenhum favorito encontrado.</p>
+                                        <FavoritesSectionEmpty />
+                                    </>
+                                )
                             ) : (
                                 <>
                                     <GameCardSkeleton />
