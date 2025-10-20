@@ -7,9 +7,9 @@ import CTAButton from "./CTAButton";
 
 function UserProfile({ user }) {
     return (
-        <Link>
+        <Link to={`u/${user.id}`}>
             <div className="group flex items-center gap-2">
-                <img className="h-[45px] w-[45px] border-2 border-raspberry rounded-full" src={user.profile.profPicURL} alt="Profile-pic" />
+                <img className="h-[45px] w-[45px] border-2 border-raspberry rounded-full" src={user.profile.profPicURL ? user.profile.profPicURL : 'https://placehold.co/45x45/14171F/E0055D.webp?text=LoGG'} alt="Profile-pic" />
                 <span className="text-[20px] group-hover:underline">{user.name}</span>
             </div>
         </Link>
@@ -35,7 +35,6 @@ function Navbar() {
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (menuRef.current && !menuRef.current.contains(e.target)) {
-                console.log(menuRef.current, e.target)
                 setIsOpen(false);
             }
         };

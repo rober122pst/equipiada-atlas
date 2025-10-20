@@ -24,8 +24,14 @@ export const getUserGames = async (req, res) => {
             query.gameId = gameId;
         }
 
-        const userGamesList = await UserGames.find(query);
-        res.status(200).json(userGamesList);
+        const userGamesList = await UserGames.find(query).populate("gameId", "slug title genres coverURL bannerURL externalIds").lean();
+        const formatted = userGamesList.map((ug) => ({
+            ...ug,
+            game: ug.gameId,
+            gameId: undefined
+        }))
+
+        res.status(200).json(formatted);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
