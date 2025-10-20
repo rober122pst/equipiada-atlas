@@ -51,8 +51,8 @@ function LoginPage() {
     };
 
     return (
-        <div className="bg-rich-950 min-h-[calc(100vh-90px)] text-platinum font-display">
-            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px)] w-[400px] m-auto">
+        <div className="bg-rich-950 h-full text-platinum font-display">
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px-114px)] h-full w-[400px] m-auto">
                 <div>
                     <h1 className="text-[40px] font-black italic text-raspberry">LOGO</h1>
                 </div>
